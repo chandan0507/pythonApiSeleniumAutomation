@@ -9,6 +9,7 @@ def writeProdUrl(fileName, getProductName, urlGet):
         f.write("import requests\n")
         # f.write("from postApiCall import apiCall\n")
         f.write("from selenium import webdriver\n")
+        f.write(f"from selenium.webdriver.common.action_chains import ActionChains\n")
         f.write("from selenium.webdriver.common.by import By\n\n")
         f.write(f"testRunId = int(time.time())\n")
         f.write(f"executionTime = time.strftime('%d-%m-%Y %H:%M:%S', time.localtime())\n\n")
@@ -59,7 +60,7 @@ def writeElementOperation(fileName, incrementCounterOnEachCall, userInputDescrip
             f.write(f"\tprint('Execution : {userInputDescription}')\n")
         elif userInputOperation == 'drag-drop':
             f.write(f"\tdrag{incrementCounterOnEachCall} = driver.find_element(By.{userInputElement}, r'''{userInputElementValue}''')\n")
-            f.write(f"\tdrop{incrementCounterOnEachCall} = driver.find_element(By.{destKeySelector}, r'''{destValSelector}''')\n")
+            f.write(f"\tdrop{incrementCounterOnEachCall} = driver.find_element(By.{availSingleElementsDict[destKeySelector]}, r'''{destValSelector}''')\n")
             f.write(f"\tActionChains(driver).drag_and_drop(drag{incrementCounterOnEachCall}, drop{incrementCounterOnEachCall}).perform()\n")
         else:
             f.write(f"\t{incrementCounterOnEachCall} = driver.find_element(By.{userInputElement}, r'''{userInputElementValue}''')\n")
