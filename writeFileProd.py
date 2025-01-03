@@ -1,5 +1,5 @@
 availSingleElementsDict = {'id': 'ID', 'name': 'NAME', 'xpath': 'XPATH', 'linktext': 'LINK_TEXT', 'tagname': 'TAG_NAME', 'classname': 'CLASS_NAME', 'cssselector': 'CSS_SELECTOR', 'q': 'quit()'}
-availOperationDict = {'click': 'click', 'input': 'send_keys'}
+availOperationDict = {'click': 'click', 'input': 'send_keys', 'drap-drop' : 'drag_and_drop'}
 
 def writeProdUrl(fileName, getProductName, urlGet):
     f = open(fileName, "a")
@@ -17,6 +17,7 @@ def writeProdUrl(fileName, getProductName, urlGet):
         f.close()
 
 def matchChecker(fileName, incrementCounterOnEachCall, userInputDescription, userInputElement, userInputElementValue, userInputOperation, userInputOperationValue, waitTime):
+    # code here
     match userInputElement:
         case 'id':
             writeElementOperation(fileName, incrementCounterOnEachCall, userInputDescription, availSingleElementsDict['id'], userInputElementValue, userInputOperation, userInputOperationValue, waitTime)

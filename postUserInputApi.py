@@ -26,6 +26,10 @@ def postUserInput():
                 return jsonify({'errorMessage' : 'description is null'}), 402
             if not action['optionValue']:
                 pass
+            if not action['destOptionKey']:
+                pass
+            if not action['destOptionVal']:
+                pass
         if jsonData:
             provideResponse(jsonData['fileName'], jsonData['productName'], jsonData['webUrl'], jsonData['actions'])
             print(dict(jsonData))
@@ -45,6 +49,8 @@ def provideResponse(fileName, productName, webUrl, jsonData):
         selectorValSender = action['selectorValue']
         optionKeySender = action['optionKey'].lower()
         optionValSender = action['optionValue']
+        destKeySelector = action['destOptionKey'].lower()
+        destValSelector = action['destOptionVal'].lower()
         descriptionSender = action['description']
         waitTimeSender = action['waitTime']
         matchChecker(fileNamepy, incrementCounterOnEachCall, descriptionSender, selectorKeySender, selectorValSender, optionKeySender, optionValSender, waitTimeSender)
@@ -64,6 +70,8 @@ def provideResponse(fileName, productName, webUrl, jsonData):
 #             "selectorValue" : "someButton",
 #             "optionKey" : "something",
 #             "optionValue" : "thisVal",
+#             "destOptionKey" : "id",
+#             "destOptionVal" : "Val",
 #             "waitTime" : 10,
 #             "description" : "click on button"
 #         },
@@ -72,6 +80,8 @@ def provideResponse(fileName, productName, webUrl, jsonData):
 #             "selectorValue" : "event",
 #             "optionKey" : "something",
 #             "optionValue" : null,
+#             "destOptionKey" : null,
+#             "destOptionVal" : null,
 #             "waitTime" : 10,
 #             "description" : "click on button"
 #         },
@@ -79,6 +89,8 @@ def provideResponse(fileName, productName, webUrl, jsonData):
 #             "selectorKey" : "link",
 #             "selectorValue" : "aref",
 #             "optionKey" : "something",
+#             "destOptionKey" : null,
+#             "destOptionVal" : null,
 #             "optionValue" : "thisVal",
 #             "waitTime" : 10,
 #             "description" : "click on button"
