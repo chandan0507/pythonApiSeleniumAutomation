@@ -50,10 +50,10 @@ def provideResponse(fileName, productName, webUrl, jsonData):
         optionKeySender = action['optionKey'].lower()
         optionValSender = action['optionValue']
         destKeySelector = action['destOptionKey'].lower()
-        destValSelector = action['destOptionVal'].lower()
+        destValSelector = action['destOptionVal']
         descriptionSender = action['description']
         waitTimeSender = action['waitTime']
-        matchChecker(fileNamepy, incrementCounterOnEachCall, descriptionSender, selectorKeySender, selectorValSender, optionKeySender, optionValSender, waitTimeSender)
+        matchChecker(fileNamepy, incrementCounterOnEachCall, descriptionSender, selectorKeySender, selectorValSender, optionKeySender, optionValSender, destKeySelector, destValSelector, waitTimeSender)
         count+=1
     endOfFile(fileNamepy)
 

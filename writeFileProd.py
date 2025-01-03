@@ -1,5 +1,5 @@
 availSingleElementsDict = {'id': 'ID', 'name': 'NAME', 'xpath': 'XPATH', 'linktext': 'LINK_TEXT', 'tagname': 'TAG_NAME', 'classname': 'CLASS_NAME', 'cssselector': 'CSS_SELECTOR', 'q': 'quit()'}
-availOperationDict = {'click': 'click', 'input': 'send_keys', 'drap-drop' : 'drag_and_drop'}
+availOperationDict = {'click': 'click', 'input': 'send_keys', 'drag-drop' : 'drag_and_drop'}
 
 def writeProdUrl(fileName, getProductName, urlGet):
     f = open(fileName, "a")
@@ -16,35 +16,40 @@ def writeProdUrl(fileName, getProductName, urlGet):
         print("file not found")
         f.close()
 
-def matchChecker(fileName, incrementCounterOnEachCall, userInputDescription, userInputElement, userInputElementValue, userInputOperation, userInputOperationValue, waitTime):
+def matchChecker(fileName, incrementCounterOnEachCall, userInputDescription, userInputElement, userInputElementValue, userInputOperation, userInputOperationValue, destKeySelector, destValSelector, waitTime):
     # code here
     match userInputElement:
         case 'id':
-            writeElementOperation(fileName, incrementCounterOnEachCall, userInputDescription, availSingleElementsDict['id'], userInputElementValue, userInputOperation, userInputOperationValue, waitTime)
+            writeElementOperation(fileName, incrementCounterOnEachCall, userInputDescription, availSingleElementsDict['id'], userInputElementValue, userInputOperation, userInputOperationValue, destKeySelector, destValSelector, waitTime)
         case 'name':
-            writeElementOperation(fileName, incrementCounterOnEachCall, userInputDescription, availSingleElementsDict['name'], userInputElementValue, userInputOperation, userInputOperationValue, waitTime)
+            writeElementOperation(fileName, incrementCounterOnEachCall, userInputDescription, availSingleElementsDict['name'], userInputElementValue, userInputOperation, userInputOperationValue, destKeySelector, destValSelector, waitTime)
         case 'xpath':
-            writeElementOperation(fileName, incrementCounterOnEachCall, userInputDescription, availSingleElementsDict['xpath'], userInputElementValue, userInputOperation, userInputOperationValue, waitTime)
+            writeElementOperation(fileName, incrementCounterOnEachCall, userInputDescription, availSingleElementsDict['xpath'], userInputElementValue, userInputOperation, userInputOperationValue, destKeySelector, destValSelector, waitTime)
         case 'linktext':
-            writeElementOperation(fileName, incrementCounterOnEachCall, userInputDescription, availSingleElementsDict['linktext'], userInputElementValue, userInputOperation, userInputOperationValue, waitTime)
+            writeElementOperation(fileName, incrementCounterOnEachCall, userInputDescription, availSingleElementsDict['linktext'], userInputElementValue, userInputOperation, userInputOperationValue, destKeySelector, destValSelector, waitTime)
         case 'tagname':
-            writeElementOperation(fileName, incrementCounterOnEachCall, userInputDescription, availSingleElementsDict['tagname'], userInputElementValue, userInputOperation, userInputOperationValue, waitTime)
+            writeElementOperation(fileName, incrementCounterOnEachCall, userInputDescription, availSingleElementsDict['tagname'], userInputElementValue, userInputOperation, userInputOperationValue, destKeySelector, destValSelector, waitTime)
         case 'classname':
-            writeElementOperation(fileName, incrementCounterOnEachCall, userInputDescription, availSingleElementsDict['classname'], userInputElementValue, userInputOperation, userInputOperationValue, waitTime)
+            writeElementOperation(fileName, incrementCounterOnEachCall, userInputDescription, availSingleElementsDict['classname'], userInputElementValue, userInputOperation, userInputOperationValue, destKeySelector, destValSelector, waitTime)
         case 'cssselector':
-            writeElementOperation(fileName, incrementCounterOnEachCall, userInputDescription, availSingleElementsDict['cssselector'], userInputElementValue, userInputOperation, userInputOperationValue, waitTime)
+            writeElementOperation(fileName, incrementCounterOnEachCall, userInputDescription, availSingleElementsDict['cssselector'], userInputElementValue, userInputOperation, userInputOperationValue, destKeySelector, destValSelector, waitTime)
 
-def writeElementOperation(fileName, incrementCounterOnEachCall, userInputDescription, userInputElement, userInputElementValue, userInputOperation, userInputOperationValue, waitTime):
+def writeElementOperation(fileName, incrementCounterOnEachCall, userInputDescription, userInputElement, userInputElementValue, userInputOperation, userInputOperationValue, destKeySelector, destValSelector, waitTime):
     f = open(fileName, 'a')
     # getTimer function is called here, because to give manual sleep on each operation
     incrementCounterOnEachCallError = incrementCounterOnEachCall+"Error"
     try:
         f.write(f"try:\n")
-        f.write(f"\t{incrementCounterOnEachCall} = driver.find_element(By.{userInputElement}, r'''{userInputElementValue}''')\n")
         if userInputOperation == 'click':
+            f.write(f"\t{incrementCounterOnEachCall} = driver.find_element(By.{userInputElement}, r'''{userInputElementValue}''')\n")
             f.write(f"\t{incrementCounterOnEachCall}.{userInputOperation}()\n")
             f.write(f"\tprint('Execution : {userInputDescription}')\n")
+        elif userInputOperation == 'drag-drop':
+            f.write(f"\tdrag{incrementCounterOnEachCall} = driver.find_element(By.{userInputElement}, r'''{userInputElementValue}''')\n")
+            f.write(f"\tdrop{incrementCounterOnEachCall} = driver.find_element(By.{destKeySelector}, r'''{destValSelector}''')\n")
+            f.write(f"\tActionChains(driver).drag_and_drop(drag{incrementCounterOnEachCall}, drop{incrementCounterOnEachCall}).perform()\n")
         else:
+            f.write(f"\t{incrementCounterOnEachCall} = driver.find_element(By.{userInputElement}, r'''{userInputElementValue}''')\n")
             f.write(f"\t{incrementCounterOnEachCall}.{availOperationDict[userInputOperation]}('{userInputOperationValue}')\n")
             f.write(f"\tprint('Execution : {userInputDescription}')\n")
         f.write(f"except Exception as {incrementCounterOnEachCallError}:\n")
