@@ -52,7 +52,7 @@ def provideResponse(fileName, productName, webUrl, jsonData):
         destValSelector = action['destOptionVal']
         descriptionSender = action['description']
         waitTimeSender = action['waitTime']
-        if action['destOptionKey'].lower() is None:
+        if action['destOptionKey'] is None:
             destKeySelector = action['destOptionKey']
         else:
             destKeySelector = action['destOptionKey'].lower()
