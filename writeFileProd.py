@@ -1,5 +1,5 @@
 availSingleElementsDict = {'id': 'ID', 'name': 'NAME', 'xpath': 'XPATH', 'linktext': 'LINK_TEXT', 'tagname': 'TAG_NAME', 'classname': 'CLASS_NAME', 'cssselector': 'CSS_SELECTOR', 'q': 'quit()'}
-availOperationDict = {'click': 'click', 'input': 'send_keys', 'drag-drop' : 'drag_and_drop'}
+availOperationDict = {'click': 'click', 'input': 'send_keys', 'drag-drop' : 'drag_and_drop', 'clear':'clear', 'rightclick' : 'perform'}
 
 def writeProdUrl(fileName, getProductName, urlGet):
     f = open(fileName, "a")
@@ -54,7 +54,7 @@ def writeElementOperation(fileName, incrementCounterOnEachCall, userInputDescrip
     incrementCounterOnEachCallError = incrementCounterOnEachCall+"Error"
     try:
         f.write(f"try:\n")
-        if userInputOperation == 'click':
+        if userInputOperation == 'click' or userInputOperation == 'clear':
             f.write(f"\t{incrementCounterOnEachCall} = driver.find_element(By.{userInputElement}, r'''{userInputElementValue}''')\n")
             f.write(f"\t{incrementCounterOnEachCall}.{userInputOperation}()\n")
             f.write(f"\tprint('Execution : {userInputDescription}')\n")
@@ -62,6 +62,10 @@ def writeElementOperation(fileName, incrementCounterOnEachCall, userInputDescrip
             f.write(f"\tdrag{incrementCounterOnEachCall} = driver.find_element(By.{userInputElement}, r'''{userInputElementValue}''')\n")
             f.write(f"\tdrop{incrementCounterOnEachCall} = driver.find_element(By.{availSingleElementsDict[destKeySelector]}, r'''{destValSelector}''')\n")
             f.write(f"\tActionChains(driver).drag_and_drop(drag{incrementCounterOnEachCall}, drop{incrementCounterOnEachCall}).perform()\n")
+        elif userInputOperation == 'rightclick':
+            f.write(f"\trc{incrementCounterOnEachCall} = driver.find_element(By.{userInputElement}, r'''{userInputElementValue}''')\n")
+            f.write(f"\tActionChains(driver).context_click(rc{incrementCounterOnEachCall}).{availOperationDict[userInputOperation]}()\n")
+            f.write(f"\tprint('Execution : {userInputDescription}')\n")
         else:
             f.write(f"\t{incrementCounterOnEachCall} = driver.find_element(By.{userInputElement}, r'''{userInputElementValue}''')\n")
             f.write(f"\t{incrementCounterOnEachCall}.{availOperationDict[userInputOperation]}('{userInputOperationValue}')\n")

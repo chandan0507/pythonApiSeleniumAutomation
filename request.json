@@ -1,0 +1,38 @@
+{
+    "txnId": "9721628",
+    "fileName": "chand",
+    "webUrl": "https://",
+    "productName": "vocus",
+    "actions": [
+        {
+            "selectorKey": "Id",
+            "selectorValue": "someButton",
+            "optionKey": "something",
+            "optionValue": "thisVal",
+            "destOptionKey": "id",
+            "destOptionVal": "Val",
+            "waitTime": 10,
+            "description": "click on button"
+        },
+        {
+            "selectorKey": "name",
+            "selectorValue": "event",
+            "optionKey": "something",
+            "optionValue": null,
+            "destOptionKey": null,
+            "destOptionVal": null,
+            "waitTime": 10,
+            "description": "click on button"
+        },
+        {
+            "selectorKey": "link",
+            "selectorValue": "aref",
+            "optionKey": "something",
+            "destOptionKey": null,
+            "destOptionVal": null,
+            "optionValue": "thisVal",
+            "waitTime": 10,
+            "description": "click on button"
+        }
+    ]
+}
