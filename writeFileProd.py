@@ -1,4 +1,4 @@
-availSingleElementsDict = {'id': 'ID', 'name': 'NAME', 'xpath': 'XPATH', 'linktext': 'LINK_TEXT', 'tagname': 'TAG_NAME', 'classname': 'CLASS_NAME', 'cssselector': 'CSS_SELECTOR', 'q': 'quit()'}
+availSingleElementsDict = {'id': 'ID', 'name': 'NAME', 'xpath': 'XPATH', 'linktext': 'LINK_TEXT', 'tagname': 'TAG_NAME', 'classname': 'CLASS_NAME', 'cssselector': 'CSS_SELECTOR', 'q': 'quit()', 'containstext': 'XPATH'}
 availOperationDict = {'click': 'click', 'input': 'send_keys', 'drag-drop' : 'drag_and_drop', 'clear':'clear', 'rightclick' : 'perform'}
 
 def writeProdUrl(fileName, getProductName, urlGet):
@@ -47,6 +47,9 @@ def matchChecker(fileName, incrementCounterOnEachCall, userInputDescription, use
             writeElementOperation(fileName, incrementCounterOnEachCall, userInputDescription, availSingleElementsDict['classname'], userInputElementValue, userInputOperation, userInputOperationValue, destKeySelector, destValSelector, waitTime)
         case 'cssselector':
             writeElementOperation(fileName, incrementCounterOnEachCall, userInputDescription, availSingleElementsDict['cssselector'], userInputElementValue, userInputOperation, userInputOperationValue, destKeySelector, destValSelector, waitTime)
+        case 'containstext':
+            writeElementOperation(fileName, incrementCounterOnEachCall, userInputDescription, availSingleElementsDict['containstext'], userInputElementValue, userInputOperation, userInputOperationValue, destKeySelector, destValSelector, waitTime)
+#For containstext need to give as //*[contains(text(), 'grt_tqa')]
 
 def writeElementOperation(fileName, incrementCounterOnEachCall, userInputDescription, userInputElement, userInputElementValue, userInputOperation, userInputOperationValue, destKeySelector, destValSelector, waitTime):
     f = open(fileName, 'a')
